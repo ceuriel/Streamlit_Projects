@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.express as px
 from numpy.random import default_rng as rng
 
 df = pd.read_csv("state_data.csv")
