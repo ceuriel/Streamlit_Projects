@@ -1,33 +1,30 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from numpy.random import default_rng as rng
 
 df = pd.read_csv("state_data.csv")
 
-st.header("Changes in US State Demographics Over Time")
+st.header("US State Demographics")
 
-# Let user select which state to graph
+# Let user select which state and demographic to graph
 state = st.selectbox("State:", df["State"].unique())
+demographic = st.selectbox(
+    "Demographic:", ["Total Population", "Median Household Income"]
+)
 
-# Let user select which Demographics to graph
-demographics = st.selectbox("Demographics:", ["Total Population", "Median Household Income"])
-
-
-# Create tabs for graph and table
 graph_tab, table_tab = st.tabs(["📈 Graphs", "🔍 Table"])
 
 with graph_tab:
     # Create the graph the user requested
     df_state = df[df["State"] == state]
-    if demographics == "Total Population":
+    if demographic == "Total Population":
         fig = px.line(
             df_state,
             x="Year",
             y="Total Population",
             title=f"Total Population of {state}",
         )
-    elif demographics == "Median Household Income":
+    elif demographic == "Median Household Income":
         fig = px.line(
             df_state,
             x="Year",
@@ -35,7 +32,7 @@ with graph_tab:
             title=f"Median Household Income of {state}",
         )
     else:
-        raise ValueError("Unknown demographics!")
+        raise ValueError("Unknown demographic!")
     st.plotly_chart(fig)
 with table_tab:
     # Render the entire dataframe
