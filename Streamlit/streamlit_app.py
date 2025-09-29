@@ -4,7 +4,7 @@ import plotly.express as px
 
 df = pd.read_csv("state_data.csv")
 
-st.header("US State Demographics")
+st.header("Changes in US State Demographics Over Time")
 
 # Let user select which state and demographic to graph
 state = st.selectbox("State:", df["State"].unique())
@@ -12,7 +12,7 @@ demographic = st.selectbox(
     "Demographic:", ["Total Population", "Median Household Income"]
 )
 
-graph_tab, table_tab = st.tabs(["📈 Graphs", "🔍 Table"])
+graph_tab, table_tab = st.tabs(["Graphs", "Table"])
 
 with graph_tab:
     # Create the graph the user requested
